@@ -48,6 +48,6 @@ button:hover {
     background-color: aqua;
 }
 
-.operators {
+.operators, #equalto{
     background-color: lime;
 }
