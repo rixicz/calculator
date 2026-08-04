@@ -40,65 +40,66 @@ function operate(a, b, op) {
 
 }
 
-function clearItAll(a, b, op, nV) {
+function clearItAll() {
     display.textContent = 0
     a = ""
     b = ""
-    op = ""
-    nV = ""
+    operator = ""
+    nextVar = ""
 }
 
 function screenWrite(btn) {
     if (display.textContent === "0") {
         display.textContent = btn.textContent
-        nV = btn.textContent
     
     } else {
         display.textContent += btn.textContent
-        nV += btn.textContent
     }
-    return nV
 }
 
-let nextVar;
-let a;
-let b;
-let operator
+let nextVar = ""
+let a = ""
+let b = ""
+let operator = ""
 
 function writeScreen(event) {
     const button = event.currentTarget
-    
+    console.log(operator)
     if (button.id === "clear") {
-        clearItAll(a, b, operator, nextVar)
+        clearItAll()
         return
     }
 
     if (button.id === "equalto") {
         b = parseInt(nextVar)
         display.textContent = operate(a, b, operator)
+        a = ""
+        b = ""
         return
     }
     if (button.className === "numbers" || button.className === "operators") {
-        nextVar = screenWrite(button)
-    }
+        screenWrite(button)
 
-    if (button.className === "operators") {
-        if (a === undefined) {
-            a = parseInt(nextVar)
-            console.log(a)
-        
-        } else if (b === undefined) {
-            b = parseInt(nextVar)
-            console.log(b)
-            display.textContent = operate(a, b, operator)
-            a = ""
-            b = ""
+        if (button.className === "numbers") {
+            nextVar += button.textContent
+
+        } else if (button.className === "operators") {
+            
+            operator = button.textContent
+            
+            if (!a) {
+                a = parseInt(nextVar)
+            
+            } else if (b === null) {
+                b = parseInt(nextVar)
+                display.textContent = operate(a, b, operator)
+                a = ""
+                b = ""
+            }
+            
+            nextVar = ""
         }
-
-        nextVar = ""
-        operator = button.textContent
-    }
-    console.log(nextVar)
+    }  
 }
 
 buttons.forEach((btn) => {
