@@ -35,7 +35,12 @@ function operate(a, b, op) {
         return divide(a, b)
     
     } else if (op === "") {
-        return nextVar
+        if (result === "") {
+            return 0
+        
+        } else {
+            return result
+        }       
     
     } else {
         return "Invalid operand"
@@ -48,7 +53,7 @@ function clearItAll() {
     a = ""
     b = ""
     operator = ""
-    nextVar = 0
+    nextVar = ""
     displayAvailable = true
 }
 
@@ -68,8 +73,14 @@ function screenWrite(result) {
     }
 }
 
+function evaluate() {
+    b = parseInt(nextVar)
+    display.textContent = operate(a, b, operator)
+    b = ""
+}
+
 let resultDisplayed = false
-let nextVar = 0
+let nextVar = ""
 let a = ""
 let b = ""
 let operator = ""
@@ -83,11 +94,9 @@ function buttonClicked(event) {
     }
     
     if (button.id === "equalto") {
-        b = parseInt(nextVar)
-        display.textContent = operate(a, b, operator)
-        nextVar = parseInt(display.textContent)
+        evaluate()
         a = ""
-        b = ""
+        nextVar = parseInt(display.textContent)
         resultDisplayed = true
         return
     }
@@ -96,28 +105,23 @@ function buttonClicked(event) {
         return alert("Display limit reached. The maximum digit count for this calculator is 13.")
     }
 
-    if (button.className === "numbers" || button.className === "operators") {
+    if (button.className === "numbers") {
+        nextVar += button.textContent
+        screenWrite(button.textContent)
+    }
 
-        if (button.className === "numbers") {
-            nextVar += button.textContent
-
-        } else if (button.className === "operators") {
-            
-            if (!a) {
-                a = parseInt(nextVar)
-                nextVar = ""
-            
-            } else if (!b) {
-                b = parseInt(nextVar)
-                display.textContent = operate(a, b, operator)
-                a = parseInt(display.textContent)  // watch out it is a bit different than in equalto - here the a variable needs to be set because the operator has already been set
-                nextVar = 0
-                b = ""
-            }
-            
-            operator = button.textContent
+    if (button.className === "operators" && (a || nextVar)) {
+        
+        if (!a) {
+            a = parseInt(nextVar)
+        
+        } else if (!b && nextVar) {
+            evaluate()
+            a = parseInt(display.textContent)
         }
-
+        
+        nextVar = ""
+        operator = button.textContent
         screenWrite(button.textContent)
     }  
 }
