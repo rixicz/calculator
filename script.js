@@ -34,6 +34,9 @@ function operate(a, b, op) {
     } else if (op === "/") {
         return divide(a, b)
     
+    } else if (op === "") {
+        return nextVar
+    
     } else {
         return "Invalid operand"
     }
@@ -45,63 +48,80 @@ function clearItAll() {
     a = ""
     b = ""
     operator = ""
-    nextVar = ""
+    nextVar = 0
+    displayAvailable = true
 }
 
-function screenWrite(btn) {
-    if (display.textContent === "0") {
-        display.textContent = btn.textContent
+function screenWrite(result) {
+    if (display.textContent.length >= 13) {
+        return
+    }
+    
+    if (display.textContent === "0" || resultDisplayed) {
+        display.textContent = result
+        resultDisplayed = false
+        operator = ""
+        nextVar = result
     
     } else {
-        display.textContent += btn.textContent
+        display.textContent += result
     }
 }
 
-let nextVar = ""
+let resultDisplayed = false
+let nextVar = 0
 let a = ""
 let b = ""
 let operator = ""
 
-function writeScreen(event) {
+function buttonClicked(event) {
     const button = event.currentTarget
-    console.log(operator)
+    
     if (button.id === "clear") {
         clearItAll()
         return
     }
-
+    
     if (button.id === "equalto") {
         b = parseInt(nextVar)
         display.textContent = operate(a, b, operator)
+        nextVar = parseInt(display.textContent)
         a = ""
         b = ""
+        resultDisplayed = true
         return
     }
+
+    if (display.textContent.length >= 13) {
+        return alert("Display limit reached. The maximum digit count for this calculator is 13.")
+    }
+
     if (button.className === "numbers" || button.className === "operators") {
-        screenWrite(button)
 
         if (button.className === "numbers") {
             nextVar += button.textContent
 
         } else if (button.className === "operators") {
             
-            operator = button.textContent
-            
             if (!a) {
                 a = parseInt(nextVar)
+                nextVar = ""
             
-            } else if (b === null) {
+            } else if (!b) {
                 b = parseInt(nextVar)
                 display.textContent = operate(a, b, operator)
-                a = ""
+                a = parseInt(display.textContent)  // watch out it is a bit different than in equalto - here the a variable needs to be set because the operator has already been set
+                nextVar = 0
                 b = ""
             }
             
-            nextVar = ""
+            operator = button.textContent
         }
+
+        screenWrite(button.textContent)
     }  
 }
 
 buttons.forEach((btn) => {
-    btn.addEventListener("click", writeScreen)
+    btn.addEventListener("click", buttonClicked)
 })

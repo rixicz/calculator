@@ -8,7 +8,9 @@
     display: flex;
     flex-direction: column;
     margin: auto;
+    margin-top: 67px;
     width: 20%;
+    min-width: 400px;
     border-radius: 5%;
     background-color: black;
     padding: 12px 24px; 
@@ -36,8 +38,9 @@ button {
     font-size: 48px;
 }
 
-button:hover {
+button:hover, #equalto:hover {
     cursor: pointer;
+    background-color: yellow;
 }
 
 #clear {
