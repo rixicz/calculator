@@ -63,19 +63,23 @@ function clearItAll() {
     displayAvailable = true
 }
 
-function screenWrite(result) {
+function screenWrite(element) {
     if (display.textContent.length >= 13) {
         return
     }
     
     if (display.textContent === "0" || resultDisplayed) {
-        display.textContent = result
+        
+        if (typeof parseInt(element) === "number") {
+            display.textContent = element
+        }
+
         resultDisplayed = false
+        nextVar = element
         operator = ""
-        nextVar = result
     
     } else {
-        display.textContent += result
+        display.textContent += element
     }
 }
 
@@ -128,7 +132,7 @@ function buttonClicked(event) {
         
         nextVar = ""
         operator = button.textContent
-        screenWrite(button.textContent)
+        screenWrite(operator)
     }  
 }
 
