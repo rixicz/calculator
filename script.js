@@ -70,16 +70,19 @@ function screenWrite(element) {
     
     if (display.textContent === "0" || resultDisplayed) {
         
-        if (typeof parseInt(element) === "number") {
-            display.textContent = element
+        if (element.className === "numbers") {
+            display.textContent = element.textContent
+        
+        } else {
+            display.textContent += element.textContent
         }
 
         resultDisplayed = false
-        nextVar = element
+        nextVar = element.textContent
         operator = ""
     
     } else {
-        display.textContent += element
+        display.textContent += element.textContent
     }
 }
 
@@ -117,7 +120,7 @@ function buttonClicked(event) {
 
     if (button.className === "numbers") {
         nextVar += button.textContent
-        screenWrite(button.textContent)
+        screenWrite(button)
     }
 
     if (button.className === "operators" && (a || nextVar)) {
@@ -132,7 +135,7 @@ function buttonClicked(event) {
         
         nextVar = ""
         operator = button.textContent
-        screenWrite(operator)
+        screenWrite(button)
     }  
 }
 
