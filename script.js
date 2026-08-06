@@ -70,20 +70,19 @@ function screenWrite(element) {
     
     if (element.className === "numbers") {
         
-        if (element.className === "numbers") {
+        if (display.textContent === "0" || resultDisplayed) {
             display.textContent = element.textContent
             nextVar = element.textContent
         
         } else {
             display.textContent += element.textContent
-            operator = element.textContent
         }
-
-        resultDisplayed = false
     
     } else {
         display.textContent += element.textContent
     }
+
+    resultDisplayed = false
 }
 
 function evaluate() {
@@ -123,7 +122,7 @@ function buttonClicked(event) {
         screenWrite(button)
     }
 
-    if (button.className === "operators" && (a || nextVar)) {
+    if (button.className === "operators") {
         
         if (!a) {
             a = parseFloat(nextVar)
