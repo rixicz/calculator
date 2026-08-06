@@ -15,7 +15,13 @@ function multiply(a, b) {
 
 function divide(a, b) {
     if (b != 0) {
+        
+        if (a % b != 0) {
+            return Math.round(a / b * 10) / 10
+        }
+
         return a / b
+    
     } else {
         return "Division by zero!"
     }
