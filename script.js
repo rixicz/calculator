@@ -68,7 +68,7 @@ function screenWrite(element) {
         return
     }
     
-    if (display.textContent === "0" || resultDisplayed) {
+    if (element.className === "numbers") {
         
         if (element.className === "numbers") {
             display.textContent = element.textContent
@@ -101,7 +101,7 @@ let operator = ""
 function buttonClicked(event) {
     const button = event.currentTarget
     
-    if (button.id === "clear") {
+    if (button.id === "c") {
         clearItAll()
         return
     }
@@ -144,5 +144,24 @@ buttons.forEach((btn) => {
 })
 
 document.addEventListener("keydown", function (event) {
-    document.getElementById(event)
+    if (event.key === "=") {
+        btn = document.getElementById("equalto")
+    
+    } else if (event.key === "+") {
+        btn = document.getElementById("plus")
+    
+    } else if (event.key === "-") {
+        btn = document.getElementById("minus")
+    
+    } else if (event.key === "/") {
+        btn = document.getElementById("slash")
+    
+    } else if (event.key === "*") {
+        btn = document.getElementById("star")
+    
+    } else {
+        btn = document.getElementById(event.key)
+    }
+
+    btn.click()
 })
