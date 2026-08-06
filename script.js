@@ -17,7 +17,7 @@ function divide(a, b) {
     if (b != 0) {
         
         if (a % b != 0) {
-            return Math.round(a / b * 10) / 10
+            return Math.round(a / b * 100) / 100
         }
 
         return a / b
@@ -41,11 +41,11 @@ function operate(a, b, op) {
         return divide(a, b)
     
     } else if (op === "") {
-        if (result === "") {
+        if (nextVar === "") {
             return 0
         
         } else {
-            return result
+            return nextVar
         }       
     
     } else {
@@ -72,14 +72,14 @@ function screenWrite(element) {
         
         if (element.className === "numbers") {
             display.textContent = element.textContent
+            nextVar = element.textContent
         
         } else {
             display.textContent += element.textContent
+            operator = element.textContent
         }
 
         resultDisplayed = false
-        nextVar = element.textContent
-        operator = ""
     
     } else {
         display.textContent += element.textContent
@@ -87,7 +87,7 @@ function screenWrite(element) {
 }
 
 function evaluate() {
-    b = parseInt(nextVar)
+    b = parseFloat(nextVar)
     display.textContent = operate(a, b, operator)
     b = ""
 }
@@ -109,7 +109,7 @@ function buttonClicked(event) {
     if (button.id === "equalto") {
         evaluate()
         a = ""
-        nextVar = parseInt(display.textContent)
+        nextVar = parseFloat(display.textContent)
         resultDisplayed = true
         return
     }
@@ -126,11 +126,11 @@ function buttonClicked(event) {
     if (button.className === "operators" && (a || nextVar)) {
         
         if (!a) {
-            a = parseInt(nextVar)
+            a = parseFloat(nextVar)
         
         } else if (!b && nextVar) {
             evaluate()
-            a = parseInt(display.textContent)
+            a = parseFloat(display.textContent)
         }
         
         nextVar = ""
@@ -141,4 +141,8 @@ function buttonClicked(event) {
 
 buttons.forEach((btn) => {
     btn.addEventListener("click", buttonClicked)
+})
+
+document.addEventListener("keydown", function (event) {
+    document.getElementById(event)
 })
