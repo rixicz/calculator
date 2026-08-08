@@ -128,7 +128,7 @@ function buttonClicked(event) {
             if (!nextVar){
                 nextVar = 0
             }
-            
+
             a = parseFloat(nextVar)
         
         } else if (!b && nextVar) {
@@ -162,6 +162,9 @@ document.addEventListener("keydown", function (event) {
     } else if (event.key === "*") {
         btn = document.getElementById("star")
     
+    } else if (event.key === ".") {
+        btn = document.getElementById("dot")
+        
     } else {
         btn = document.getElementById(event.key)
     }
