@@ -124,7 +124,11 @@ function buttonClicked(event) {
 
     if (button.className === "operators") {
         
-        if (!a) {
+        if (!a){
+            if (!nextVar){
+                nextVar = 0
+            }
+            
             a = parseFloat(nextVar)
         
         } else if (!b && nextVar) {
