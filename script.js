@@ -1,25 +1,8 @@
 const buttons = document.querySelectorAll("button")
 const display = document.querySelector(".display")
 
-function add(a, b) {
-    return a + b
-}
-
-function subtract(a, b) {
-    return a - b
-}
-
-function multiply(a, b) {
-    return a * b
-}
-
 function divide(a, b) {
     if (b != 0) {
-        
-        if (a % b != 0) {
-            return Math.round(a / b * 100) / 100
-        }
-
         return a / b
     
     } else {
@@ -29,13 +12,13 @@ function divide(a, b) {
 
 function operate(a, b, op) {
     if (op === "+") {
-        return add(a, b)
+        return a + b
     
     } else if (op === "-") {
-        return subtract(a, b)
+        return a - b
     
     } else if (op === "*") {
-        return multiply(a, b)
+        return a * b
     
     } else if (op === "/") {
         return divide(a, b)
@@ -59,7 +42,7 @@ function clearItAll() {
     a = ""
     b = ""
     operator = ""
-    nextVar = ""
+    nextVar = "0"
     displayAvailable = true
 }
 
@@ -67,19 +50,20 @@ function screenWrite(element) {
     if (display.textContent.length >= 13) {
         return
     }
-    
+
+    n = element.textContent
     if (element.className === "numbers") {
         
         if (display.textContent === "0" || resultDisplayed) {
-            display.textContent = element.textContent
-            nextVar = element.textContent
+            display.textContent = n
+            nextVar = n
         
         } else {
-            display.textContent += element.textContent
+            display.textContent += n
         }
     
     } else {
-        display.textContent += element.textContent
+        display.textContent += n
     }
 
     resultDisplayed = false
@@ -87,12 +71,12 @@ function screenWrite(element) {
 
 function evaluate() {
     b = parseFloat(nextVar)
-    display.textContent = operate(a, b, operator)
+    display.textContent = Math.round(operate(a, b, operator) * 100) / 100
     b = ""
 }
 
 let resultDisplayed = false
-let nextVar = ""
+let nextVar = "0"
 let a = ""
 let b = ""
 let operator = ""
@@ -125,10 +109,6 @@ function buttonClicked(event) {
     if (button.className === "operators") {
         
         if (!a){
-            if (!nextVar){
-                nextVar = 0
-            }
-
             a = parseFloat(nextVar)
         
         } else if (!b && nextVar) {
@@ -139,7 +119,14 @@ function buttonClicked(event) {
         nextVar = ""
         operator = button.textContent
         screenWrite(button)
-    }  
+    }
+    
+    if (button.id === "dot") {
+        if (!(nextVar.includes("."))) {
+            nextVar += "."
+            screenWrite(button)
+        }
+    }
 }
 
 buttons.forEach((btn) => {
@@ -164,7 +151,7 @@ document.addEventListener("keydown", function (event) {
     
     } else if (event.key === ".") {
         btn = document.getElementById("dot")
-        
+
     } else {
         btn = document.getElementById(event.key)
     }
