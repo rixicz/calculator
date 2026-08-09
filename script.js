@@ -96,6 +96,23 @@ function buttonClicked(event) {
         resultDisplayed = true
         return
     }
+    
+    if (button.id === "backspace") {
+        let x = display.textContent.charAt(display.textContent.length - 1)
+        display.textContent = display.textContent.slice(0, -1)
+        if (operator) {
+            operator = ""
+            nextVar = String(a)
+            a = ""
+
+        } else {
+            nextVar = nextVar.slice(0, -1)
+        }
+        
+        if (display.textContent === "") {
+            display.textContent = "0"
+        }
+    }
 
     if (display.textContent.length >= 13) {
         return alert("Display limit reached. The maximum digit count for this calculator is 13.")
@@ -125,23 +142,6 @@ function buttonClicked(event) {
         if (!(nextVar.includes("."))) {
             nextVar += "."
             screenWrite(button)
-        }
-    }
-
-    if (button.id === "backspace") {
-        let x = display.textContent.charAt(display.textContent.length - 1)
-        display.textContent = display.textContent.slice(0, -1)
-        if (operator) {
-            operator = ""
-            nextVar = String(a)
-            a = ""
-
-        } else {
-            nextVar = nextVar.slice(0, -1)
-        }
-        
-        if (display.textContent === "") {
-            display.textContent = "0"
         }
     }
 }
