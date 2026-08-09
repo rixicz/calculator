@@ -1,6 +1,1 @@
-1. Double check the code DONE
-2. Create a new branch called "backspace" DONE
-3. Implement backspace:
-    - Add the button DONE
-    - Implement the backspace on screen DONE
-    - Integrate it with variables
+Add a Dark Mode
