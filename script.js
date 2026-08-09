@@ -108,10 +108,10 @@ function buttonClicked(event) {
 
     if (button.className === "operators") {
         
-        if (!a){
+        if (!a && a != 0){
             a = parseFloat(nextVar)
         
-        } else if (!b && nextVar) {
+        } else if (!b) {
             evaluate()
             a = parseFloat(display.textContent)
         }
