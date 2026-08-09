@@ -108,10 +108,10 @@ function buttonClicked(event) {
 
     if (button.className === "operators") {
         
-        if (!a && a != 0){
+        if (a === ""){
             a = parseFloat(nextVar)
         
-        } else if (!b) {
+        } else if (!b && (nextVar || nextVar === 0)) {
             evaluate()
             a = parseFloat(display.textContent)
         }
@@ -129,11 +129,19 @@ function buttonClicked(event) {
     }
 
     if (button.id === "backspace") {
-        if (typeof nextVar === "string") {
-            display.textContent = display.textContent.slice(0, -1)
-            if (display.textContent === "") {
-                display.textContent = "0"
-            }
+        let x = display.textContent.charAt(display.textContent.length - 1)
+        display.textContent = display.textContent.slice(0, -1)
+        if (operator) {
+            operator = ""
+            nextVar = String(a)
+            a = ""
+
+        } else {
+            nextVar = nextVar.slice(0, -1)
+        }
+        
+        if (display.textContent === "") {
+            display.textContent = "0"
         }
     }
 }

@@ -2,5 +2,5 @@
 2. Create a new branch called "backspace" DONE
 3. Implement backspace:
     - Add the button DONE
-    - Implement the backspace on screen
+    - Implement the backspace on screen DONE
     - Integrate it with variables
