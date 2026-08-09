@@ -127,6 +127,15 @@ function buttonClicked(event) {
             screenWrite(button)
         }
     }
+
+    if (button.id === "backspace") {
+        if (typeof nextVar === "string") {
+            display.textContent = display.textContent.slice(0, -1)
+            if (display.textContent === "") {
+                display.textContent = "0"
+            }
+        }
+    }
 }
 
 buttons.forEach((btn) => {
