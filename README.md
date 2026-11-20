@@ -32,3 +32,7 @@ Try it live: https://rixicz.github.io/calculator/
 - The calculator works with integer input values.
 - Division by zero returns a friendly message.
 - The display is limited to 13 characters to keep the layout stable.
+
+## AI Element
+
+Apart from the `README.md`, the repo is AI-free.
